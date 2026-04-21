@@ -1,17 +1,6 @@
-const getApiBase = () => {
-  const configuredApi = window.__STUDIOPASS_CONFIG__?.apiBase || document.body?.dataset?.apiBase;
-  if (configuredApi) return configuredApi.replace(/\/$/, "");
+const API_URL = "https://premium-backend-04xk.onrender.com";
 
-  const { protocol, hostname, port, origin } = window.location;
-  const isStaticLocal =
-    (hostname === "127.0.0.1" || hostname === "localhost") && ["5500", "5501", "5502", "5503"].includes(port);
-
-  if (isStaticLocal) {
-    return `${protocol}//127.0.0.1:5050/api`;
-  }
-
-  return `${origin}/api`;
-};
+const getApiBase = () => `${API_URL}/api`;
 
 const API = getApiBase();
 

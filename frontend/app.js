@@ -1,4 +1,5 @@
-const API = "http://localhost:5000/api";
+const API_URL = "https://premium-backend-04xk.onrender.com";
+const API = `${API_URL}/api`;
 
 const state = {
   token: localStorage.getItem("token") || "",
