@@ -289,7 +289,7 @@ const ensureAuth = (redirect = false) => {
   showToast("Please log in first");
   if (redirect) {
     setTimeout(() => {
-      window.location.href = "login.html";
+      window.location.href = "login-page.html";
     }, 400);
   }
   return false;
@@ -510,7 +510,7 @@ const bindEvents = () => {
     showToast("Logged out");
     if (currentPage.includes("profile")) {
       setTimeout(() => {
-        window.location.href = "login.html";
+        window.location.href = "login-page.html";
       }, 250);
     } else {
       loadContent();
