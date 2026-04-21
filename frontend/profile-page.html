@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | StudioPass</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Premium publishing stack</p>
+        <h1>StudioPass</h1>
+      </div>
+      <nav class="topnav">
+        <a href="app.html">Discover</a>
+        <a href="register.html">Register</a>
+        <a href="login.html">Login</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+      <div class="session-actions">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">Dark</button>
+        <span id="sessionBadge" class="session-badge">Guest</span>
+        <button id="logoutBtn" class="ghost-btn hidden" type="button">Logout</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="profile-hero">
+        <article class="studio-panel">
+          <p class="eyebrow">Membership</p>
+          <h2 class="profile-title">Your premium workspace</h2>
+          <p id="authHint" class="muted-copy">Log in to manage subscription access, publish content, and export reports.</p>
+          <div class="hero-actions">
+            <button id="subscribeBtn" class="primary-btn" type="button">Subscribe for &#8377;999/mo</button>
+            <button id="demoSubBtn" class="ghost-btn" type="button">Activate Demo Access</button>
+          </div>
+        </article>
+        <article class="report-panel profile-summary-card">
+          <p class="eyebrow">At a glance</p>
+          <div class="metrics-strip">
+            <article>
+              <strong id="reportRevenue">&#8377;0.00</strong>
+              <span>Estimated revenue</span>
+            </article>
+            <article>
+              <strong id="reportViews">0</strong>
+              <span>Total views</span>
+            </article>
+            <article>
+              <strong id="reportSubscribers">0</strong>
+              <span>Active subscribers</span>
+            </article>
+          </div>
+        </article>
+      </section>
+
+      <section class="studio-grid">
+        <article class="studio-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Creator Studio</p>
+              <h3>Publish content</h3>
+            </div>
+            <span id="creatorGuard" class="status-pill">Login as creator to publish</span>
+          </div>
+          <form id="contentForm" class="stack-form">
+            <div class="grid-2">
+              <label>
+                <span>Title</span>
+                <input id="title" type="text" placeholder="Build a niche course funnel" required>
+              </label>
+              <label>
+                <span>Content type</span>
+                <select id="type">
+                  <option value="article">Article</option>
+                  <option value="video">Video</option>
+                  <option value="course">Course</option>
+                </select>
+              </label>
+            </div>
+            <div class="grid-2">
+              <label>
+                <span>Category</span>
+                <select id="category">
+                  <option value="Technology">Technology</option>
+                  <option value="Business">Business</option>
+                  <option value="Design">Design</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Wellness">Wellness</option>
+                  <option value="Education">Education</option>
+                </select>
+              </label>
+              <label>
+                <span>Access</span>
+                <select id="accessLevel">
+                  <option value="premium">Premium</option>
+                  <option value="free">Free</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              <span>Summary</span>
+              <textarea id="summary" rows="2" placeholder="Short teaser for the catalog"></textarea>
+            </label>
+            <label>
+              <span>Body</span>
+              <textarea id="contentBody" rows="6" placeholder="Write the article, lesson overview, or video transcript" required></textarea>
+            </label>
+            <div class="grid-3">
+              <label>
+                <span>Duration (minutes)</span>
+                <input id="durationMinutes" type="number" min="0" value="15">
+              </label>
+              <label>
+                <span>Lessons</span>
+                <input id="lessonCount" type="number" min="0" value="1">
+              </label>
+              <label>
+                <span>Tags</span>
+                <input id="tags" type="text" placeholder="growth, automation, retention">
+              </label>
+            </div>
+            <div class="grid-2">
+              <label>
+                <span>Thumbnail URL</span>
+                <input id="thumbnailUrl" type="url" placeholder="https://images.example.com/thumb.jpg">
+              </label>
+              <label>
+                <span>Video URL</span>
+                <input id="videoUrl" type="url" placeholder="https://videos.example.com/lesson.mp4">
+              </label>
+            </div>
+            <button class="primary-btn" type="submit">Publish Content</button>
+          </form>
+        </article>
+
+        <article id="reports" class="report-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Creator Analytics</p>
+              <h3>Revenue and engagement reports</h3>
+            </div>
+            <button id="exportBtn" class="ghost-btn" type="button">Export CSV</button>
+          </div>
+          <div id="reportTable" class="report-table empty-state">
+            Log in as a creator to view performance data.
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  <script src="platform.js"></script>
+</body>
+</html>

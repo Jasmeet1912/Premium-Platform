@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In | StudioPass</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="page-shell auth-page-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Premium publishing stack</p>
+        <h1>StudioPass</h1>
+      </div>
+      <nav class="topnav">
+        <a href="app.html">Discover</a>
+        <a href="register.html">Register</a>
+        <a href="login.html">Login</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+      <div class="session-actions">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">Dark</button>
+        <span id="sessionBadge" class="session-badge">Guest</span>
+        <button id="logoutBtn" class="ghost-btn hidden" type="button">Logout</button>
+      </div>
+    </header>
+
+    <main class="auth-layout">
+      <section class="auth-card">
+        <p class="eyebrow">Welcome back</p>
+        <h2 class="auth-title">Log in to your account</h2>
+        <p id="authHint" class="muted-copy">Access your premium membership and creator dashboard.</p>
+        <form id="loginForm" class="stack-form">
+          <label>
+            <span>Email</span>
+            <input id="loginEmail" type="email" placeholder="you@example.com" required>
+          </label>
+          <label>
+            <span>Password</span>
+            <div class="password-field">
+              <input id="loginPassword" type="password" placeholder="Your password" required>
+              <button id="toggleLoginPassword" class="password-toggle" type="button" aria-label="Show password">Show</button>
+            </div>
+          </label>
+          <button id="forgotPasswordBtn" class="text-action" type="button">Forgot password?</button>
+          <button class="primary-btn" type="submit">Log In</button>
+        </form>
+        <form id="resetPasswordForm" class="stack-form hidden auth-subcard">
+          <p class="eyebrow">Reset access</p>
+          <label>
+            <span>Email</span>
+            <input id="resetEmail" type="email" placeholder="you@example.com" required>
+          </label>
+          <label>
+            <span>New password</span>
+            <div class="password-field">
+              <input id="resetPassword" type="password" placeholder="Create a new password" required>
+              <button id="toggleResetPassword" class="password-toggle" type="button" aria-label="Show new password">Show</button>
+            </div>
+          </label>
+          <div class="hero-actions">
+            <button class="primary-btn" type="submit">Reset Password</button>
+            <button id="cancelResetBtn" class="ghost-btn" type="button">Cancel</button>
+          </div>
+        </form>
+        <div class="auth-links">
+          <span class="muted-copy">Need an account?</span>
+          <a href="register.html">Create one</a>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  <script src="platform.js"></script>
+</body>
+</html>
