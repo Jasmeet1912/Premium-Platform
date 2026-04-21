@@ -309,7 +309,7 @@ const register = async (event) => {
   setSession(data);
   showToast("Account created");
   setTimeout(() => {
-    window.location.href = "profile.html";
+    window.location.href = "profile-page.html";
   }, 350);
 };
 
@@ -325,7 +325,7 @@ const login = async (event) => {
   setSession(data);
   showToast("Welcome back");
   setTimeout(() => {
-    window.location.href = "profile.html";
+    window.location.href = "profile-page.html";
   }, 350);
 };
 
