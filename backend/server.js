@@ -56,12 +56,12 @@ app.use("/api/reports", require("./routes/reports"));
 app.use(express.static(FRONTEND_DIR));
 
 app.get("/", (_req, res) => {
-  res.sendFile(path.join(FRONTEND_DIR, "app.html"));
+  res.sendFile(path.join(FRONTEND_DIR, "index.html"));
 });
 
 app.get(["/discover", "/login", "/register", "/profile"], (req, res) => {
   const routeMap = {
-    "/discover": "app.html",
+    "/discover": "index.html",
     "/login": "login-page.html",
     "/register": "register-page.html",
     "/profile": "profile-page.html"

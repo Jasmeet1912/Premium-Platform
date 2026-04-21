@@ -50,7 +50,7 @@ const elements = {
   toggleResetPassword: $("toggleResetPassword")
 };
 
-const currentPage = window.location.pathname.split("/").pop() || "app.html";
+const currentPage = window.location.pathname.split("/").pop() || "index.html";
 const authHeader = () => (state.token ? { Authorization: `Bearer ${state.token}` } : {});
 const storedTheme = localStorage.getItem("theme") || "light";
 
