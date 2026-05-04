@@ -7,19 +7,39 @@ const auth = require("../middleware/auth");
 const createToken = (user) =>
   jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
-router.post("/register", async (req, res) => {
-  const { name, email, password, role } = req.body;
+const namePattern = /^[\p{L}][\p{L}\p{M} .'-]{1,49}$/u;
+const usernamePattern = /^[a-z0-9_]{3,24}$/;
 
-  if (!name || !email || !password) {
-    return res.status(400).json({ message: "Name, email, and password are required" });
+router.post("/register", async (req, res) => {
+  const { password, role } = req.body;
+  const name = String(req.body.name || "").trim();
+  const username = String(req.body.username || "").trim().toLowerCase();
+  const email = String(req.body.email || "").trim().toLowerCase();
+
+  if (!name || !username || !email || !password) {
+    return res.status(400).json({ message: "Name, username, email, and password are required" });
   }
 
-  const existing = await User.findOne({ email });
-  if (existing) return res.status(409).json({ message: "User already exists" });
+  if (!namePattern.test(name)) {
+    return res.status(400).json({
+      message: "Name must be 2-50 letters. Spaces, apostrophes, hyphens, and periods are allowed."
+    });
+  }
+
+  if (!usernamePattern.test(username)) {
+    return res.status(400).json({
+      message: "Username must be 3-24 characters and use only lowercase letters, numbers, and underscores."
+    });
+  }
+
+  const existing = await User.findOne({ $or: [{ email }, { username }] });
+  if (existing?.email === email) return res.status(409).json({ message: "Email already exists" });
+  if (existing?.username === username) return res.status(409).json({ message: "Username already exists" });
 
   const hashed = await bcrypt.hash(password, 10);
   const user = await User.create({
     name,
+    username,
     email,
     password: hashed,
     role: role || "subscriber"
@@ -29,7 +49,8 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const email = String(req.body.email || "").trim().toLowerCase();
+  const { password } = req.body;
   const user = await User.findOne({ email });
   if (!user) return res.status(400).json({ message: "No user found" });
 
@@ -40,7 +61,8 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/reset-password", async (req, res) => {
-  const { email, newPassword } = req.body;
+  const email = String(req.body.email || "").trim().toLowerCase();
+  const { newPassword } = req.body;
 
   if (!email || !newPassword) {
     return res.status(400).json({ message: "Email and new password are required" });

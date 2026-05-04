@@ -17,6 +17,7 @@ const elements = {
   sessionBadge: $("sessionBadge"),
   themeToggle: $("themeToggle"),
   logoutBtn: $("logoutBtn"),
+  guestLinks: document.querySelectorAll("[data-guest-link]"),
   authHint: $("authHint"),
   subscribeBtn: $("subscribeBtn"),
   demoSubBtn: $("demoSubBtn"),
@@ -42,6 +43,8 @@ const elements = {
 const currentPage = window.location.pathname.split("/").pop() || "index.html";
 const authHeader = () => (state.token ? { Authorization: `Bearer ${state.token}` } : {});
 const storedTheme = localStorage.getItem("theme") || "light";
+const namePattern = /^[\p{L}][\p{L}\p{M} .'-]{1,49}$/u;
+const usernamePattern = /^[a-z0-9_]{3,24}$/;
 
 const applyTheme = (theme) => {
   document.documentElement.dataset.theme = theme;
@@ -111,6 +114,7 @@ const renderSession = () => {
 
   if (elements.sessionBadge) elements.sessionBadge.textContent = label;
   if (elements.logoutBtn) elements.logoutBtn.classList.toggle("hidden", !user);
+  elements.guestLinks.forEach((link) => link.classList.toggle("hidden", Boolean(user)));
   if (elements.creatorGuard) {
     elements.creatorGuard.textContent =
       user && ["creator", "admin"].includes(user.role) ? "Publishing enabled" : "Login as creator to publish";
@@ -297,10 +301,26 @@ const ensureAuth = (redirect = false) => {
 
 const register = async (event) => {
   event.preventDefault();
+  const name = $("registerName").value.trim();
+  const username = $("registerUsername").value.trim().toLowerCase();
+
+  if (!namePattern.test(name)) {
+    showToast("Name must be 2-50 letters. Spaces, apostrophes, hyphens, and periods are allowed.");
+    $("registerName").focus();
+    return;
+  }
+
+  if (!usernamePattern.test(username)) {
+    showToast("Username must be 3-24 characters and use only lowercase letters, numbers, and underscores.");
+    $("registerUsername").focus();
+    return;
+  }
+
   const data = await api("/auth/register", {
     method: "POST",
     body: JSON.stringify({
-      name: $("registerName").value.trim(),
+      name,
+      username,
       email: $("registerEmail").value.trim(),
       password: $("registerPassword").value,
       role: $("registerRole").value

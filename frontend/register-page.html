@@ -18,8 +18,8 @@
       </div>
       <nav class="topnav">
         <a href="index.html">Discover</a>
-        <a href="register.html">Register</a>
-        <a href="login-page.html">Login</a>
+        <a href="register.html" data-guest-link>Register</a>
+        <a href="login-page.html" data-guest-link>Login</a>
         <a href="profile-page.html">Profile</a>
       </nav>
       <div class="session-actions">
@@ -37,7 +37,30 @@
         <form id="registerForm" class="stack-form">
           <label>
             <span>Name</span>
-            <input id="registerName" type="text" placeholder="Avery Cole" required>
+            <input
+              id="registerName"
+              type="text"
+              placeholder="Avery Cole"
+              minlength="2"
+              maxlength="50"
+              autocomplete="name"
+              title="Use 2-50 letters. Spaces, apostrophes, hyphens, and periods are allowed."
+              required
+            >
+          </label>
+          <label>
+            <span>Username</span>
+            <input
+              id="registerUsername"
+              type="text"
+              placeholder="avery_cole"
+              minlength="3"
+              maxlength="24"
+              pattern="[a-z0-9_]{3,24}"
+              autocomplete="username"
+              title="Use 3-24 lowercase letters, numbers, or underscores."
+              required
+            >
           </label>
           <label>
             <span>Email</span>
